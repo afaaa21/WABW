@@ -10,7 +10,7 @@ class Employee extends Model
         'nama_lengkap',
         'nomor_telepon',
         'email',
-        'ala1mat',
+        'alamat',
         'tanggal_masuk',
         'tanggal_lahir',
         'status',
