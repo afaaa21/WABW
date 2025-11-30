@@ -1,48 +1,54 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-
-</head>
 @extends('master')
+
 @section('title', 'Daftar Pegawai')
+@section('page-title', 'Daftar Pegawai')
+
 @section('content')
-    <div class="container mt-5">
-        <h1 class="mb-4">Daftar Pegawai</h1>
-    <table border="1" cellpadding="5" cellspacing="0">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <h2>Data Pegawai</h2>
+        <a href="{{ route('employees.create') }}" class="btn btn-primary">+ Tambah Pegawai</a>
+    </div>
+
+    <table>
         <thead>
             <tr>
+                <th>No</th>
                 <th>Nama Lengkap</th>
+                <th>Departemen</th>
+                <th>Jabatan</th>
                 <th>Email</th>
-                <th>Nomor Telepon</th>
-                <th>Tanggal Lahir</th>
-                <th>Alamat</th>
-                <th>Tanggal Masuk</th>
                 <th>Status</th>
                 <th>Aksi</th>
-                </tr>
+            </tr>
         </thead>
         <tbody>
             @foreach($employees as $employee)
             <tr>
+                <td>{{ $loop->iteration }}</td>
                 <td>{{ $employee->nama_lengkap }}</td>
+                <td>{{ $employee->department->nama_departemen ?? '-' }}</td>
+                <td>{{ $employee->position->nama_jabatan ?? '-' }}</td>
                 <td>{{ $employee->email }}</td>
-                <td>{{ $employee->nomor_telepon }}</td>
-                <td>{{ $employee->tanggal_lahir }}</td>
-                <td>{{ $employee->alamat }}</td>
-                <td>{{ $employee->tanggal_masuk }}</td>
-                <td>{{ $employee->status }}</td>
                 <td>
-                    <a href="{{ route('employees.show', $employee->id) }}">Detail</a> |
-                    <a href="{{ route('employees.edit', $employee->id) }}">Edit</a> |
-            <form action="{{ route('employees.destroy', $employee->id) }}" method="POST" style="display:inline;">
-                @csrf
-                @method('DELETE')
-                <button type="submit" onclick="return confirm('Yakin ingin menghapus?')">Delete</button>
-                </form>
-            </td>
-        </tr>
-        @endforeach
-    </tbody>
+                    <span style="padding: 5px; border-radius: 4px; background-color: {{ $employee->status == 'aktif' ? '#d4edda' : '#f8d7da' }}; color: {{ $employee->status == 'aktif' ? '#155724' : '#721c24' }};">
+                        {{ ucfirst($employee->status) }}
+                    </span>
+                </td>
+                <td>
+                    <a href="{{ route('employees.show', $employee->id) }}" class="btn btn-warning" style="padding: 5px 10px; font-size: 12px;">Detail</a>
+                    <a href="{{ route('employees.edit', $employee->id) }}" class="btn btn-success" style="padding: 5px 10px; font-size: 12px;">Edit</a>
+                    <form action="{{ route('employees.destroy', $employee->id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Yakin hapus?')">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger" style="padding: 5px 10px; font-size: 12px;">Hapus</button>
+                    </form>
+                </td>
+            </tr>
+            @endforeach
+        </tbody>
     </table>
+    
+    <div style="margin-top: 20px;">
+        {{ $employees->links() }}
     </div>
 @endsection

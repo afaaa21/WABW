@@ -1,14 +1,25 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Detail Pegawai</title>
-</head>
-<body>
-    <h1>Detail Pegawai</h1>
-    <table border="1" cellpadding="8" cellspacing="0">
+@extends('master')
+
+@section('title', 'Detail Pegawai')
+
+@section('content')
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <h2>Detail Pegawai</h2>
+        <a href="{{ route('employees.index') }}" class="btn btn-primary">Kembali</a>
+    </div>
+
+    <table>
         <tr>
-            <th>Nama Lengkap</th>
+            <th width="200">Nama Lengkap</th>
             <td>{{ $employee->nama_lengkap }}</td>
+        </tr>
+        <tr>
+            <th>Departemen</th>
+            <td>{{ $employee->department->nama_departemen ?? '-' }}</td>
+        </tr>
+        <tr>
+            <th>Jabatan</th>
+            <td>{{ $employee->position->nama_jabatan ?? '-' }}</td>
         </tr>
         <tr>
             <th>Email</th>
@@ -32,8 +43,7 @@
         </tr>
         <tr>
             <th>Status</th>
-            <td>{{ $employee->status }}</td>
+            <td>{{ ucfirst($employee->status) }}</td>
         </tr>
     </table>
-</body>
-</html>
+@endsection
