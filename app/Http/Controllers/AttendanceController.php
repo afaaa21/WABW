@@ -3,22 +3,24 @@
 namespace App\Http\Controllers;
 
 use App\Models\Attendance;
-use App\Models\Employee; // Import model Employee untuk dropdown
+use App\Models\Employee; // PENTING: Import Model Employee
 use Illuminate\Http\Request;
 
 class AttendanceController extends Controller
 {
     public function index()
     {
-        // Menggunakan with('employee') agar query lebih efisien (Eager Loading)
+        // with('employee') untuk menampilkan nama pegawai di tabel index
         $attendances = Attendance::with('employee')->latest()->paginate(5);
         return view('attendance.index', compact('attendances'));
     }
 
     public function create()
     {
-        // Kirim data karyawan untuk pilihan di dropdown (select option)
+        // AMBIL DATA PEGAWAI UNTUK DROPDOWN
         $employees = Employee::all();
+        
+        // Kirim variabel $employees ke view create
         return view('attendance.create', compact('employees'));
     }
 
@@ -27,21 +29,24 @@ class AttendanceController extends Controller
         $request->validate([
             'karyawan_id'    => 'required|exists:employees,id',
             'tanggal'        => 'required|date',
-            'waktu_masuk'    => 'nullable',
+            'waktu_masuk'    => 'nullable', // Boleh kosong jika belum absen
             'waktu_keluar'   => 'nullable',
-            'status_absensi' => 'required|in:hadir,izin,sakit,alpha',
+            'status_absensi' => 'required',
         ]);
 
         Attendance::create($request->all());
 
         return redirect()->route('attendance.index')
-                         ->with('success', 'Data absensi berhasil ditambahkan.');
+                         ->with('success', 'Absensi berhasil dicatat.');
     }
 
     public function edit(string $id)
     {
         $attendance = Attendance::findOrFail($id);
-        $employees = Employee::all(); // Kirim data karyawan lagi untuk edit
+        
+        // Saat edit juga perlu list pegawai jika ingin mengubah orangnya
+        $employees = Employee::all(); 
+
         return view('attendance.edit', compact('attendance', 'employees'));
     }
 
@@ -52,7 +57,7 @@ class AttendanceController extends Controller
             'tanggal'        => 'required|date',
             'waktu_masuk'    => 'nullable',
             'waktu_keluar'   => 'nullable',
-            'status_absensi' => 'required|in:hadir,izin,sakit,alpha',
+            'status_absensi' => 'required',
         ]);
 
         $attendance = Attendance::findOrFail($id);

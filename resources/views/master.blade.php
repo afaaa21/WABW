@@ -5,11 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'Sistem Kepegawaian')</title>
     
+    <!-- Google Fonts: Inter -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --primary: #4f46e5; /* Indigo Modern */
+            --primary: #4f46e5;
             --primary-dark: #4338ca;
             --secondary: #64748b;
             --bg-light: #f3f4f6;
@@ -19,7 +20,6 @@
             --success: #10b981;
             --warning: #f59e0b;
             --danger: #ef4444;
-            --info: #3b82f6;
         }
 
         body {
@@ -33,7 +33,7 @@
             min-height: 100vh;
         }
 
-        /* --- Navbar Professional --- */
+        /* --- Navbar --- */
         header {
             background-color: var(--white);
             box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
@@ -92,7 +92,6 @@
             box-sizing: border-box;
         }
 
-        /* --- Global Styles --- */
         .page-header {
             display: flex;
             justify-content: space-between;
@@ -102,7 +101,7 @@
 
         h2 { font-size: 24px; font-weight: 700; color: var(--text-dark); margin: 0; }
         
-        /* Buttons */
+        /* --- Buttons --- */
         .btn {
             display: inline-flex;
             align-items: center;
@@ -119,12 +118,11 @@
         }
         .btn-primary { background-color: var(--primary); color: white; box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.2); }
         .btn-primary:hover { background-color: var(--primary-dark); transform: translateY(-1px); }
-        
         .btn-success { background-color: var(--success); color: white; }
         .btn-danger { background-color: var(--danger); color: white; }
         .btn-warning { background-color: var(--warning); color: white; }
 
-        /* Tables Modern */
+        /* --- Tables --- */
         table {
             width: 100%;
             border-collapse: separate;
@@ -134,7 +132,6 @@
             overflow: hidden;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
         }
-        
         th {
             background-color: #f8fafc;
             color: var(--text-gray);
@@ -146,27 +143,42 @@
             text-align: left;
             border-bottom: 1px solid #e2e8f0;
         }
-        
         td {
             padding: 16px;
             border-bottom: 1px solid #f1f5f9;
             color: var(--text-dark);
             font-size: 14px;
         }
-        
         tr:last-child td { border-bottom: none; }
         tr:hover td { background-color: #f8fafc; }
 
-        /* Forms */
+        /* --- Forms --- */
         form { background: var(--white); padding: 30px; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); }
+        
         label { font-weight: 500; margin-bottom: 8px; display: block; font-size: 14px; color: var(--text-dark); }
-        input, select, textarea {
-            width: 100%; padding: 12px; border: 1px solid #e2e8f0; border-radius: 8px; margin-bottom: 20px;
-            font-size: 14px; transition: border-color 0.2s; box-sizing: border-box; font-family: 'Inter', sans-serif;
+        
+        /* UPDATE: Menambahkan semua tipe input agar rapi */
+        input[type="text"], 
+        input[type="email"], 
+        input[type="date"], 
+        input[type="number"], 
+        input[type="time"],
+        select, 
+        textarea {
+            width: 100%; 
+            padding: 12px; 
+            border: 1px solid #e2e8f0; 
+            border-radius: 8px; 
+            margin-bottom: 20px;
+            font-size: 14px; 
+            transition: border-color 0.2s; 
+            box-sizing: border-box; 
+            font-family: 'Inter', sans-serif;
         }
+        
         input:focus, select:focus, textarea:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1); }
 
-        /* Footer */
+        /* --- Footer & Alert --- */
         footer {
             text-align: center;
             padding: 20px;
@@ -175,8 +187,6 @@
             margin-top: auto;
             border-top: 1px solid #e2e8f0;
         }
-
-        /* Alert */
         .alert { padding: 15px; background: #ecfdf5; border: 1px solid #d1fae5; color: #065f46; border-radius: 8px; margin-bottom: 20px; font-size: 14px; }
     </style>
 </head>
